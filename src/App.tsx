@@ -4,13 +4,38 @@ import { IQuest } from './api/interfaces/Quest';
 import { Header } from './components/menu/header';
 import logo from './logo.svg';
 import { getColorForTier } from './utils/utils';
+import { HubConnectionBuilder } from '@microsoft/signalr';
 // import './App.css';
 
 function App() {
 
   const [news, setNews] = useState<IQuest[]>([]);
 
-  useEffect(() => {
+  useEffect( () => {
+
+    // https://medium.com/swlh/creating-a-simple-real-time-chat-with-net-core-reactjs-and-signalr-6367dcadd2c6
+
+    const socket = new WebSocket('ws://localhost:5000');
+    const newConnection = new HubConnectionBuilder()
+    .withUrl('https://localhost:5001/hub')
+    .withAutomaticReconnect()
+    .build();
+
+    if ( newConnection ) {
+      newConnection.start().then( (connection:any) => {
+        connection.on('ReceiveMessage', (message:any) => { 
+          console.log(message);
+        });
+      })
+     
+    }
+
+    // try {
+    //   let ws = new WebSocket("ws://localhost:5000/WeatherForecast/ws");
+    // } catch ( e ) {
+    //   console.log(e)
+    // }
+
 
     // TODO : MOCK
     setNews([{
