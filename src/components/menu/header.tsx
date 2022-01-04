@@ -2,7 +2,7 @@ export const Header = ( props:any ) => {
     return (
         <div>
             <div className="mb-5 p-5 mt-5 flex space-x-4 justify-center text-2xl">
-                <p>Covid19</p>
+                <p>Covid19 | Media</p>
                 <div className="mt-5"></div>
             </div>
             <cite>
